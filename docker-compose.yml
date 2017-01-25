@@ -1,0 +1,44 @@
+data:
+  image: alpine:latest
+  command: /bin/true
+  volumes:
+    - ./neos-development-distribution:/var/www/neos
+    - ./flow-development-distribution:/var/www/flow
+
+neos-db:
+  image: 'mariadb:latest'
+  command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+  environment:
+    - MYSQL_ROOT_PASSWORD=root
+    - MYSQL_DATABASE=neos
+
+flow-db:
+  image: 'mariadb:latest'
+  command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+  environment:
+    - MYSQL_ROOT_PASSWORD=root
+    - MYSQL_DATABASE=flow
+
+app:
+  build: 'docker/app'
+  volumes_from:
+    - data
+  links:
+    - neos-db
+    - flow-db
+  environment:
+    - WWW_USER_ID=1001
+#    - WWW_USER=neos
+#    - FLOW_CONTEXT=Development
+
+web:
+  build: 'docker/web'
+  ports:
+    - "80:80"
+  volumes_from:
+    - data
+  links:
+    - app
+#  environment:
+#    - NEOS_HOST=neos.dev
+#    - FLOW_HOST=flow.dev
