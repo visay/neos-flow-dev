@@ -21,6 +21,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     imagemagick \
     sendmail \
+    sqlite3 \
     wget \
     php7.0-cli \
     php7.0-curl \
@@ -29,6 +30,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     php7.0-ldap \
     php7.0-mbstring \
     php7.0-mysql \
+    php7.0-sqlite3 \
     php7.0-xml \
     php7.0-zip \
     php-imagick \
