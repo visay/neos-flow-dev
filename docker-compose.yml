@@ -26,6 +26,7 @@ app:
   links:
     - neos-db
     - flow-db
+#    - elasticsearch
   environment:
     - WWW_USER_ID=1001
 #    - WWW_USER=neos
@@ -42,3 +43,14 @@ web:
 #  environment:
 #    - NEOS_HOST=neos.dev
 #    - FLOW_HOST=flow.dev
+
+#elasticsearch:
+#  image: 'elasticsearch:1.7-alpine'
+#  volumes:
+#    - ./docker/elasticsearch/1.7/config.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+
+#elasticsearch:
+#  image: 'elasticsearch:2.4-alpine'
+#  volumes:
+#    - ./docker/elasticsearch/2.4/config.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+#    - ./docker/elasticsearch/2.4/java.policy:/home/elasticsearch/.java.policy:ro

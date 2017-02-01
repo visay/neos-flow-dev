@@ -1,0 +1,6 @@
+# The following settings are absolutely required for the CR adaptor to work
+script.engine.groovy.inline.update: true
+
+# the following settings are well-suited for smaller Elasticsearch instances (i.e. as long as you can stay on one host)
+index.number_of_shards: 1
+index.number_of_replicas: 0
