@@ -2,30 +2,48 @@ data:
   image: alpine:latest
   command: /bin/true
   volumes:
-    - ./neos-development-distribution:/var/www/neos
-    - ./flow-development-distribution:/var/www/flow
+    - ./neos-development-distribution:/var/www/neos-dev
+    - ./flow-development-distribution:/var/www/flow-dev
+    - ./neos-base-distribution:/var/www/neos-base
+    - ./flow-base-distribution:/var/www/flow-base
 
-neos-db:
+db-neos-dev:
   image: 'mariadb:latest'
   command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
   environment:
     - MYSQL_ROOT_PASSWORD=root
-    - MYSQL_DATABASE=neos
+    - MYSQL_DATABASE=neos-dev
 
-flow-db:
+db-flow-dev:
   image: 'mariadb:latest'
   command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
   environment:
     - MYSQL_ROOT_PASSWORD=root
-    - MYSQL_DATABASE=flow
+    - MYSQL_DATABASE=flow-dev
+
+db-neos-base:
+  image: 'mariadb:latest'
+  command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+  environment:
+    - MYSQL_ROOT_PASSWORD=root
+    - MYSQL_DATABASE=neos-base
+
+db-flow-base:
+  image: 'mariadb:latest'
+  command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+  environment:
+    - MYSQL_ROOT_PASSWORD=root
+    - MYSQL_DATABASE=flow-base
 
 app:
   build: 'docker/app'
   volumes_from:
     - data
   links:
-    - neos-db
-    - flow-db
+    - db-neos-dev
+    - db-flow-dev
+    - db-neos-base
+    - db-flow-base
 #    - elasticsearch
   environment:
     - WWW_USER_ID=1001
@@ -41,8 +59,10 @@ web:
   links:
     - app
 #  environment:
-#    - NEOS_HOST=neos.dev
-#    - FLOW_HOST=flow.dev
+#    - NEOS_DEV_HOST=neos.dev
+#    - FLOW_DEV_HOST=flow.dev
+#    - NEOS_BASE_HOST=neos.base
+#    - FLOW_BASE_HOST=flow.base
 
 #elasticsearch:
 #  image: 'elasticsearch:1.7-alpine'
