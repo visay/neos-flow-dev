@@ -3,13 +3,23 @@ This is repository for my personal Neos / Flow development setup using docker.
 Usage:
 =====
 
-1. Clone the repository:
+Clone the repository:
+---------------------
 
 ```bash
 git clone https://github.com/visay/neos-flow-dev.git /path/to/your/local/workspace
 ```
 
-2. Get into your local workspace and pull Neos and Flow source code:
+Run the init script:
+--------------------
+
+```bash
+./init.sh
+```
+
+The script is equivalent to the following:
+
+1. Pull Neos and Flow source code from the development distribution and base distribution:
 
 ```bash
 cd /path/to/your/local/workspace
@@ -23,9 +33,7 @@ git clone https://github.com/neos/neos-base-distribution.git
 git clone https://github.com/neos/flow-base-distribution.git
 ```
 
-If you also need the base distribution for comparison:
-
-3. Install dependencies for Neos and Flow:
+2. Install dependencies for all Neos and Flow distributions:
 
 ```bash
 cd /path/to/your/local/workspace/neos-development-distribution
@@ -35,8 +43,6 @@ cd /path/to/your/local/workspace/flow-development-distribution
 composer update
 ```
 
-If base distribution needed:
-
 ```bash
 cd /path/to/your/local/workspace/neos-base-distribution
 composer update
@@ -45,7 +51,10 @@ cd /path/to/your/local/workspace/flow-base-distribution
 composer update
 ```
 
-4. Build local docker images for development and start docker containers:
+**Note:** The script can be re-used to reset your workspace to a clean state in master branch.
+
+Build local docker images for development and start docker containers:
+----------------------------------------------------------------------
 
 ```bash
 cd /path/to/your/local/workspace
@@ -53,28 +62,26 @@ docker-compose build
 docker-compose up -d
 ```
 
-5. Update your hosts file to point Neos and Flow domains docker container. I'm using Ubuntu so for me, it is this line
-in `/etc/hosts`
+Update your hosts file to point Neos and Flow domains docker container:
+-----------------------------------------------------------------------
+
+I'm using Ubuntu, so for me it is this line in `/etc/hosts`
 
 ```ini
 0.0.0.0 neos.dev flow.dev
 ```
 
-For base distribution:
-
 ```ini
 0.0.0.0 neos.base flow.base
 ```
 
-6. You should be able to start Neos setup wizard or view Flow welcome page:
+You should be able to start Neos setup wizard or view Flow welcome page:
+------------------------------------------------------------------------
 
-	- http://neos.dev/setup
-	- http://flow.dev
-
-For base distribution:
-
-	- http://neos.base/setup
-	- http://flow.base
+- Neos Development Distribution -> http://neos.dev/setup
+- Flow Development Distribution -> http://flow.dev
+- Neos Base Distribution -> http://neos.base/setup
+- Flow Base Distribution -> http://flow.base
 
 Database information
 ====================
